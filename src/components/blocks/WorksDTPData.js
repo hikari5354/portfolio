@@ -984,7 +984,7 @@ export const workDTPDatas = [
     height: "427px",
     type: "YouTube",
     activetxt:
-      "Graphic Design > <br/>キャラクターデザイン<br/>YouTubeチャンネル用キャラクターイラスト制作",
+      "Illustration > <br/>キャラクターデザイン<br/>YouTubeチャンネル用キャラクターイラスト制作",
     imageMain: "illustration01-1440×1024.webp",
     imageMainWidth: "1440px",
     imageMainHeight: "1024px",
@@ -1008,7 +1008,7 @@ export const workDTPDatas = [
     width: "600px",
     height: "427px",
     type: "ベクターイラスト",
-    activetxt: "Graphic Design > <br/>デフォルメイラスト<br/>ベクターイラスト",
+    activetxt: "Illustration > <br/>デフォルメイラスト<br/>ベクターイラスト",
     imageMain: "illustration02-1440×1024.webp",
     imageMainWidth: "1440px",
     imageMainHeight: "1024px",
@@ -1033,7 +1033,7 @@ export const workDTPDatas = [
     height: "427px",
     type: "挿絵/販促イラスト/漫画",
     activetxt:
-      "Graphic Design > <br/>女性向けイラスト<br/>ベクターイラスト<br/>販促漫画",
+      "Illustration > <br/>女性向けイラスト<br/>ベクターイラスト<br/>販促漫画",
     imageMain: "illustration03-1440×1024.webp",
     imageMainWidth: "1440px",
     imageMainHeight: "1024px",
