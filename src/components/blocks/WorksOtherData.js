@@ -33,7 +33,7 @@ export const workOtherDatas = [
     imageMainWidth: "1440px",
     imageMainHeight: "1024px",
     infoDesc:
-      "株式会社NIHON STYLE様のA4ポケットフォルダーのデザインを制作させていただきました。",
+      "株式会社カーサービスフレンズ 様の広告動画を制作させていただきました。",
     infoPeriod: "約2週間(修正対応など含む)",
     infoTool: "Illustrator / Photoshop / Premiere Pro / After Effects",
     process01:
