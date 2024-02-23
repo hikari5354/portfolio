@@ -1,0 +1,164 @@
+/**
+*breakpoint
+*/
+$breakpoints: (
+  "min": "screen and (max-width: 400px)",
+  "sp": "screen and (max-width: 599px)",
+  "tab": "screen and (max-width: 1023px)",
+  "pc-tab": "screen and (max-width: 820px)",
+  "pc-only": "screen and (min-width: 1024px)",
+  "tab-only": "screen and (min-width: 600px) and (max-width: 1023px)",
+) !default;
+
+@mixin mq($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+/**
+*hover制御
+*/
+$hovers: (
+  "pc": "(hover: hover)",
+  "sp": "(hover: none)",
+) !default;
+
+@mixin hover($hover: pc) {
+  @media #{map-get($hovers, $hover)} {
+    @content;
+  }
+}
+
+/**
+*サイトカラー指定
+*/
+@function color-main() {
+  @return #333333;
+}
+@function color-green() {
+  @return #c7d9ce;
+}
+@function color-blue() {
+  @return #daecf2;
+}
+@function color-pink() {
+  @return #f2c2c2;
+}
+@function color-gray() {
+  @return #b3b3b3;
+}
+
+/**
+*common
+*/
+@mixin box-1200($bottom: clamp(50px, 10vw, 150px)) {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+  margin-bottom: $bottom;
+}
+
+%box-bottom {
+  margin-bottom: clamp(50px, 10vw, 150px);
+}
+
+%center-box-bottom {
+  margin: 0 auto;
+  margin-bottom: clamp(50px, 10vw, 150px);
+}
+
+%font-size-regular {
+  font-size: clamp(1.6rem, 1.65vmax, 1.7rem);
+  letter-spacing: 0.04em;
+}
+
+// h2 main-ttl
+@mixin main-ttl($margin-bottom: 2em) {
+  font-weight: 900;
+  font-size: clamp(3.5rem, 5vw, 5rem);
+  color: color-main();
+  position: relative;
+  margin-bottom: $margin-bottom;
+  .color {
+    color: color-pink();
+    vertical-align: top;
+  }
+}
+@mixin js-subttl-view($sub-ttl: "わたしについて") {
+  &:before {
+    content: $sub-ttl;
+    position: absolute;
+    bottom: -0.8em;
+    left: 0;
+    color: color-gray();
+    font-size: 0.35em;
+    font-weight: 500;
+    animation: fade-in-animation 1.8s 0.3s both;
+  }
+}
+
+// グラデーションボタン
+@mixin gr-button {
+  background: linear-gradient(45deg, #c7d9ce, #f2c2c2, #daecf2);
+  color: #fff;
+  position: relative;
+  transition: all 1s ease-out;
+  width: 100%;
+  max-width: 20em;
+  display: block;
+  font-size: clamp(1.6rem, 2vw, 1.8rem);
+  &:hover {
+    &:before {
+      opacity: 0;
+    }
+    a {
+      &:before {
+        width: calc(clamp(3em, 4vw, 6em) + 1em);
+      }
+      &:after {
+        left: calc(clamp(3em, 4vw, 6em) + 1em);
+      }
+    }
+  }
+  &:before {
+    background: #fff;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: all 1s ease-out;
+    width: 100%;
+  }
+  a {
+    position: relative;
+    padding: clamp(10px, 4vw, 20px);
+    padding-right: clamp(5px, 4vw, 10px);
+    padding-left: clamp(3em, 4vw, 6em);
+    text-align: right;
+    width: 100%;
+    display: block;
+    &:before {
+      content: "";
+      border-bottom: 1.5px solid #fff;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: clamp(3em, 4vw, 6em);
+      transition: all 0.5s ease-out;
+    }
+    &:after {
+      content: "";
+      border-radius: 50vw;
+      background-color: #fff;
+      width: clamp(3px, 3vw, 5px);
+      position: absolute;
+      top: calc(50% - calc(clamp(3px, 3vw, 6px) / 2));
+      left: calc(clamp(3em, 4vw, 6em) - calc(clamp(3px, 3vw, 6px) / 2));
+      aspect-ratio: 1/1;
+      transition: all 0.5s ease-out;
+    }
+  }
+}

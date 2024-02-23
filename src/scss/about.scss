@@ -1,0 +1,440 @@
+@charset "utf-8";
+@import "mixin";
+@import "base";
+
+/**
+*About
+*/
+:root {
+  --prf-height: 100%;
+  --career-height: 100%;
+  --career-width: 100%;
+}
+
+.profile::-webkit-scrollbar {
+  display: none;
+}
+.profile {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-top: clamp(50px, 10vw, 150px);
+  @extend %box-bottom;
+  .prf-box {
+    @include box-1200($bottom: 0);
+    .main-ttl {
+      @include main-ttl;
+    }
+    .js-subttl-view {
+      @include js-subttl-view($sub-ttl: "わたしについて");
+    }
+    &__img {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1.2;
+      max-width: 400px;
+      transform: translateX(10%);
+      @include mq(pc-tab) {
+        width: 80%;
+      }
+      @include mq() {
+        transform: translateX(10px);
+      }
+      &__clip {
+        position: absolute;
+        aspect-ratio: 1/1.2;
+        width: 100%;
+        max-width: 300px;
+        clip-path: inset(0 round 10px);
+        background-color: #fff;
+        z-index: 1;
+        @include mq(pc-tab) {
+          margin: 0 auto;
+          width: 60%;
+        }
+        img {
+          width: 100%;
+          height: auto;
+          position: absolute;
+          top: 10%;
+          left: 10%;
+          filter: sepia(0.2);
+          transform: scale(1.2);
+          transition: transform 1s 0.5s ease;
+        }
+        &.active {
+          img {
+            transform: scale(1);
+          }
+        }
+      }
+      &__shadow {
+        aspect-ratio: 1/1.2;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+        position: absolute;
+        background-color: #fff;
+        z-index: 0;
+        filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+        @include mq(pc-tab) {
+          width: 60%;
+        }
+      }
+      &__circle {
+        z-index: 1;
+        position: absolute;
+        top: 0%;
+        right: 10%;
+        aspect-ratio: 1/1;
+        width: 40%;
+        max-width: 150px;
+        margin-left: auto;
+        transform: translateY(-40px);
+        .circleText {
+          overflow: visible;
+          animation: rotation 18s linear infinite;
+          &__path {
+            fill: none;
+          }
+          &__stroke {
+            font-size: 1.7rem;
+          }
+        }
+      }
+    }
+  }
+  .prf-info {
+    position: relative;
+    &:before {
+      content: "";
+      background: linear-gradient(45deg, #c7d9ce, #f2c2c2, #daecf2);
+      background-size: 900% 450%;
+      border-top-left-radius: 20px;
+      height: var(--prf-height);
+      width: 95%;
+      position: absolute;
+      z-index: -2;
+      right: 0;
+      top: 5vh;
+      opacity: 0.7;
+      border-top-left-radius: 20px;
+      animation: bg-gradient 7s ease infinite;
+      @include mq(pc-tab) {
+        height: calc(var(--prf-height) + 100px);
+      }
+      @include mq() {
+        width: 100%;
+      }
+    }
+    &__wrap {
+      @include box-1200;
+      margin-bottom: calc(var(--prf-height) / 2);
+      @include mq(pc-tab) {
+        margin-top: calc(var(--prf-height) / 5 * -1);
+      }
+      .info {
+        position: relative;
+        padding: 10px;
+        width: 100%;
+        max-width: 650px;
+        margin-left: auto;
+        &.active {
+          &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: calc(var(--prf-height) + 10%);
+            aspect-ratio: 1/1;
+            opacity: 1;
+            transform: translateY(-50%) rotate(45deg);
+            border: 1px solid color-main();
+            border-radius: 20px;
+            z-index: -1;
+            background-color: #fff;
+            animation: square-move-rotate 2s 0.1s both;
+            @include mq() {
+              width: calc(var(--prf-height) + 20%);
+              left: -10%;
+            }
+          }
+        }
+        dt {
+          margin-bottom: 40px;
+          font-size: 1.2em;
+          width: 70%;
+          text-align: right;
+          transform: translateX(10%);
+          @include mq() {
+            width: calc(95% - 5px);
+            transform: translateX(5px);
+          }
+        }
+        dd {
+          width: 70%;
+          transform: translateX(10%);
+          @include mq() {
+            width: calc(100% - 5px);
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+  }
+  .txt-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @include box-1200($bottom: 0);
+    z-index: -2;
+    @include mq(pc-tab) {
+      bottom: -30px;
+    }
+    p {
+      font-weight: 900;
+      font-size: clamp(6rem, 10vw, 10rem);
+      margin-bottom: 0;
+      color: color-blue();
+      transform: translateX(5%);
+      @include mq() {
+        text-align: right;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+.career {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  margin-bottom: clamp(50px, 10vw, 150px);
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: color-blue();
+    z-index: -5;
+  }
+  h2.main-ttl {
+    @include main-ttl;
+    margin-bottom: 1em;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "これまでの経験");
+  }
+  .side-scroll {
+    @include box-1200($bottom: 0);
+    background-color: #fff;
+    border-radius: 20px;
+  }
+  .scroll-container {
+    overflow: hidden;
+    .career-sticky-area {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      .horizontal-scroll {
+        position: absolute;
+        top: 5%;
+        left: 0;
+        display: flex;
+        &__sec {
+          width: 500px;
+          padding: 50px;
+          @include mq() {
+            width: 100vw;
+            padding: 30px;
+          }
+          dl {
+            dt {
+              font-size: clamp(2.5rem, 3vw, 3rem);
+              font-weight: 700;
+              margin-bottom: 1em;
+              margin-top: 0.5em;
+              position: relative;
+              &:before {
+                position: absolute;
+                top: -1.2em;
+                left: 0.2em;
+                font-weight: 500;
+                font-size: 0.6em;
+              }
+              span {
+                color: #b3b3b3;
+                font-weight: 500;
+                font-size: 1.6rem;
+              }
+            }
+            .point {
+              display: block;
+              position: relative;
+              aspect-ratio: 1/1;
+              width: 20px;
+              margin: 30px 0;
+              background-color: color-pink();
+              border-radius: 5px;
+              transform: rotate(45deg);
+              &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: calc(var(--career-width) / 3);
+                width: var(--career-width);
+                height: 1px;
+                transform: translate(
+                    -50%,
+                    calc(calc(var(--career-width) / 3) * -1)
+                  )
+                  rotate(-45deg);
+                background: linear-gradient(
+                  90deg,
+                  color-main() 15px,
+                  color-pink() 15px,
+                  color-pink() 40px,
+                  color-main() 40px,
+                  color-main() 100%
+                );
+              }
+            }
+          }
+        }
+        &__year {
+          -webkit-text-stroke: 0.01em color-main();
+          color: #fff;
+          font-weight: 900;
+          font-size: 4rem;
+          position: relative;
+          &:before {
+            content: "";
+            width: calc(100% + 2em);
+            aspect-ratio: 1/1;
+            border-radius: 50vw;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -47%);
+            z-index: -1;
+          }
+        }
+      }
+    }
+  }
+}
+.skill-list {
+  @include box-1200($bottom: clamp(50px, 10vw, 150px));
+  h2.main-ttl {
+    @include main-ttl;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "スキル");
+  }
+  figure {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    img {
+      width: calc(calc(100% / 5) - 10px);
+      height: auto;
+      max-width: 80px;
+      margin-right: 10px;
+    }
+  }
+}
+.strength-wrap {
+  @include box-1200($bottom: clamp(50px, 10vw, 150px));
+  h2.main-ttl {
+    @include main-ttl;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "つよみ");
+  }
+  .strength {
+    display: flex;
+    align-items: flex-start;
+    @include mq(pc-tab) {
+      align-items: center;
+      flex-direction: column;
+    }
+    img {
+      width: 40%;
+      height: auto;
+      max-width: 400px;
+      padding: 20px;
+      @include mq(pc-tab) {
+        width: 100%;
+        margin-bottom: 60px;
+      }
+    }
+    &__list {
+      padding-left: 60px;
+      @include mq(pc-tab) {
+        padding-left: 0;
+      }
+      &__el {
+        margin-bottom: 60px;
+        position: relative;
+        &.active {
+          &:before {
+            content: "";
+            width: 0;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            color: transparent;
+            border: 1px solid color-main();
+            position: absolute;
+            top: -50%;
+            left: 0;
+            opacity: 0;
+            z-index: -1;
+            animation: circle-close-up 2s 0.5s ease;
+          }
+        }
+        h3 {
+          font-size: clamp(2.5rem, 3vw, 3rem);
+          font-weight: 700;
+          margin-bottom: 20px;
+          margin-top: 0.5em;
+          position: relative;
+          &:before {
+            position: absolute;
+            top: -1.2em;
+            left: 0.2em;
+            font-weight: 500;
+            font-size: 0.6em;
+          }
+        }
+      }
+      &__el:nth-of-type(1) {
+        h3 {
+          &:before {
+            content: "01";
+          }
+        }
+      }
+      &__el:nth-of-type(2) {
+        h3 {
+          &:before {
+            content: "02";
+          }
+        }
+      }
+      &__el:nth-of-type(3) {
+        h3 {
+          &:before {
+            content: "03";
+          }
+        }
+      }
+    }
+  }
+}

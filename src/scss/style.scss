@@ -1,0 +1,1134 @@
+@charset "utf-8";
+@import "mixin";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 62.5%;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  body {
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #333;
+    text-align: left;
+    background-color: #fff;
+    @extend %font-size-regular;
+    font-display: swap;
+  }
+  .clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  dl,
+  ol,
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  li {
+    list-style: none;
+  }
+  dt {
+    font-weight: 700;
+  }
+  dd {
+    margin-bottom: 0.5rem;
+    margin-left: 0;
+  }
+  b,
+  strong {
+    font-weight: bolder;
+  }
+  a {
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+  }
+  img {
+    vertical-align: middle;
+    border-style: none;
+  }
+  svg:not(:root) {
+    vertical-align: middle;
+  }
+  button {
+    border-radius: 0;
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  button,
+  input {
+    overflow: visible;
+  }
+  button,
+  select {
+    text-transform: none;
+  }
+}
+[type="reset"],
+[type="submit"],
+button,
+html [type="button"] {
+  appearance: button;
+  -webkit-appearance: button;
+}
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner,
+button::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+.pc-only {
+  display: block;
+  @include mq() {
+    display: none;
+  }
+}
+.sp-only {
+  display: none;
+  @include mq() {
+    display: block;
+  }
+}
+
+/**
+*ヘッダー
+*/
+header {
+  position: absolute;
+}
+.header {
+  visibility: hidden;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1000px;
+  padding-right: 10vw;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 1001;
+  @include mq(tab) {
+    max-width: none;
+    padding-right: 0;
+  }
+  &.fade {
+    opacity: 1;
+    visibility: visible;
+  }
+  &__contents {
+    background: color-main();
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    @include mq(tab) {
+      padding-top: calc(calc(100vw / 4) + 30px);
+    }
+    @include mq() {
+      padding-top: calc(calc(100vw / 2) + 30px);
+      padding-bottom: 150px;
+    }
+    .sp-nav {
+      display: block;
+      margin-bottom: 2.5rem;
+      &__link {
+        margin-bottom: 1em;
+        color: transparent;
+        font-size: 6rem;
+        font-weight: 900;
+        -webkit-text-stroke: 0.01em #fff;
+        padding-left: 1.5em;
+        position: relative;
+        transition: 0.5s ease;
+        &::before {
+          content: "";
+          width: 0.3em;
+          aspect-ratio: 1/1;
+          border-radius: 5px;
+          position: absolute;
+          top: 55%;
+          left: 0.5em;
+          transform: translateY(-50%) rotate(45deg);
+          background-color: color-pink();
+          transition: 0.5s ease;
+        }
+      }
+    }
+    a {
+      display: block;
+      transition: all 0.2s linear;
+      @include hover() {
+        &:hover {
+          color: rgba(242, 194, 194, 0.7);
+          &:before {
+            transform: translateY(-50%) rotate(315deg);
+            background-color: #fff;
+          }
+        }
+      }
+      @include hover(sp) {
+        &:active {
+          color: rgba(242, 194, 194, 0.7);
+          &:before {
+            transform: translateY(-50%) rotate(315deg);
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .sp-content__wrap::-webkit-scrollbar {
+    display: none;
+  }
+}
+.nav-btn {
+  width: 10vw;
+  position: fixed;
+  z-index: 1005;
+  max-width: 150px;
+  min-width: 100px;
+  transition: 0.5s ease;
+  &.hidden {
+    transform: translateY(-150px);
+  }
+  &__contents {
+    position: relative;
+    cursor: pointer;
+    animation: bg-gradient 7s ease infinite;
+    width: 100%;
+    aspect-ratio: 1/1;
+    &:before {
+      content: "";
+      background: linear-gradient(45deg, #c7d9ce, #f2c2c2, #daecf2);
+      background-size: 900% 450%;
+      mix-blend-mode: hard-light;
+      opacity: 0.7;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 10px;
+      z-index: -1;
+    }
+    &.active {
+      .open-btn {
+        transform: rotate(360deg);
+        span:nth-of-type(1) {
+          -webkit-transform: translate3d(0, calc(17px * 1.5), 0) rotate(45deg);
+          transform: translate3d(0, calc(17px * 1.5), 0) rotate(45deg);
+          @include mq() {
+            -webkit-transform: translate3d(0, 17px, 0) rotate(45deg);
+            transform: translate3d(0, 17px, 0) rotate(45deg);
+          }
+        }
+        span:nth-of-type(2) {
+          opacity: 0;
+        }
+        span:nth-of-type(3) {
+          -webkit-transform: translate3d(0, calc(-7px * 2.5), 0) rotate(-45deg);
+          transform: translate3d(0, calc(-7px * 2.5), 0) rotate(-45deg);
+          @include mq() {
+            -webkit-transform: translate3d(0, -7px, 0) rotate(-45deg);
+            transform: translate3d(0, -7px, 0) rotate(-45deg);
+          }
+        }
+      }
+    }
+    .open-btn {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1/1;
+      transition: all 0.6s;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      span {
+        display: inline-block;
+        transition: all 0.4s;
+        height: 2px;
+        background: #fff;
+        width: 45%;
+        margin: calc(5px * 2) 0;
+        @include mq() {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+  p.catch {
+    font-size: clamp(1.4rem, 3vw, 1.6rem);
+    font-weight: 900;
+    -ms-writing-mode: tb-rl;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+    @include mq(tab) {
+      display: none;
+    }
+  }
+}
+/**
+*下層ページサブヘッダー
+*/
+.sub-header-wrap {
+  width: 100%;
+  position: relative;
+  padding-bottom: 3em;
+  font-size: clamp(3.2rem, 6vw, 5rem);
+  .sub-header {
+    display: inline-block;
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    p {
+      font-weight: 900;
+      margin-bottom: 0;
+    }
+    .under {
+      -webkit-text-stroke: 0.01em color-main();
+      color: #fff;
+      font-size: 1.34em;
+      line-height: 0.5;
+    }
+  }
+}
+
+/**
+*共通アニメーション
+*/
+.scroll-fadein {
+  opacity: 0;
+  &.active {
+    animation: scroll-fade-in-animation 2s 0.6s both;
+  }
+}
+.slideleft {
+  transform: translateX(-50px);
+}
+.slideright {
+  transform: translateX(50px);
+}
+.slideup {
+  transform: translateY(50px);
+}
+.slidedown {
+  transform: translateY(-50px);
+}
+
+.split-text-box {
+  .split-text-animation {
+    opacity: 0;
+    &.show {
+      opacity: 1;
+      .text-animation-span {
+        display: inline-block;
+        overflow: hidden;
+      }
+      span {
+        display: inline-block;
+        animation: show-text 0.5s backwards;
+        line-height: 0.92em;
+      }
+    }
+  }
+}
+
+/**
+*WORKSリンクリスト
+*/
+.works-link-list {
+  @include box-1200;
+  h2.main-ttl {
+    @include main-ttl;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "せいさくぶつ");
+  }
+  h3 {
+    position: relative;
+    color: color-main();
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    white-space: nowrap;
+    line-height: 4em;
+    display: inline;
+    &.active {
+      &:before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: color-main();
+        position: absolute;
+        bottom: -0.2em;
+        left: 0;
+        animation: line-move 3s 0.5s both;
+      }
+    }
+  }
+  #js-cursor {
+    pointer-events: none;
+    position: fixed;
+    top: -15px;
+    left: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(51, 51, 51, 0.7);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 10;
+    &.active {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(218, 236, 242, 0.7);
+    }
+  }
+  .works-list {
+    display: flex;
+    width: 100%;
+    margin-bottom: 50px;
+    @include mq(pc-tab) {
+      flex-direction: column;
+      align-items: center;
+    }
+    &__sec {
+      width: calc(calc(100% / 3) - 10px);
+      margin-right: 10px;
+      @include mq(pc-tab) {
+        width: 100%;
+        max-width: 600px;
+        margin-right: 0;
+        margin-bottom: 30px;
+      }
+      figure {
+        cursor: pointer;
+        picture {
+          overflow: hidden;
+          display: block;
+          width: 100%;
+          aspect-ratio: 1/0.67;
+          clip-path: inset(0);
+          margin-bottom: 20px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+          }
+        }
+        figcaption {
+          transition: 0.5s ease;
+          span {
+            font-size: 0.9em;
+            color: color-gray();
+          }
+        }
+        @include hover() {
+          &:hover {
+            picture {
+              img {
+                transform: scale(1.1);
+              }
+            }
+            figcaption {
+              color: color-blue();
+            }
+          }
+        }
+        @include hover(sp) {
+          &:active {
+            &:before {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
+  .gr-button {
+    margin-left: auto;
+  }
+}
+
+/**
+*コンタクト
+*/
+.contact {
+  @include box-1200($bottom: clamp(50px, 10vw, 150px));
+  h2.main-ttl {
+    @include main-ttl;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "れんらくさき");
+  }
+  &__mail {
+    display: flex;
+    justify-content: flex-end;
+    &__link {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      cursor: pointer;
+      position: relative;
+      transition: 0.3s ease;
+      img {
+        width: 1em;
+        height: auto;
+        margin-right: 0.2em;
+        margin-bottom: 0.1em;
+      }
+      &.active {
+        &:before {
+          content: "";
+          position: absolute;
+          bottom: -0.3em;
+          left: 0;
+          width: 0%;
+          height: 1px;
+          background-color: color-main();
+          animation: line-move 1s 0.2s both;
+        }
+      }
+      @include hover() {
+        &:hover {
+          color: color-gray();
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -0.3em;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: color-pink();
+            z-index: 1;
+            animation: line-move 1s 0.2s both;
+          }
+        }
+      }
+      @include hover(sp) {
+        &:active {
+          color: color-gray();
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -0.3em;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: color-pink();
+            z-index: 1;
+            animation: line-move 1s 0.2s both;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+*フッター
+*/
+footer {
+  position: relative;
+  width: 100%;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: color-main();
+    z-index: -5;
+  }
+  .footer {
+    padding: 40px clamp(20px, 5vw, 50px) 20px;
+    &__top {
+      display: inline-block;
+      position: absolute;
+      top: 60px;
+      right: clamp(0px, 5vw, 30px);
+      padding: 20px;
+      &__link {
+        span {
+          color: #fff;
+          position: relative;
+          &:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            background: #fff;
+            height: calc(tan(15deg) * 50px / 2);
+            width: 10px;
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+          }
+        }
+      }
+      @include hover() {
+        &:hover {
+          animation: bound 1s 0.3s ease;
+        }
+      }
+      @include hover(sp) {
+        &:active {
+          animation: bound 1s 0.3s ease;
+        }
+      }
+    }
+    &__copyright {
+      color: #fff;
+      text-align: right;
+      font-size: 1.4rem;
+      padding-top: 100px;
+    }
+  }
+}
+
+/**
+*ボタン
+*/
+.gr-button {
+  background: #fff;
+  color: main-color();
+  position: relative;
+  transition: all 1s ease-out;
+  width: 100%;
+  max-width: 240px;
+  display: block;
+  font-size: clamp(1.6rem, 2vw, 1.8rem);
+  border: 1px solid color-main();
+  border-radius: 10px;
+  @include mq(pc-tab) {
+    max-width: 200px;
+  }
+  &:before {
+    background: linear-gradient(45deg, #c7d9ce, #f2c2c2, #daecf2);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: all 1s ease-out;
+    width: 100%;
+    border-radius: 10px;
+  }
+  &__inner {
+    position: relative;
+    padding: clamp(10px, 4vw, 20px);
+    width: 100%;
+    display: block;
+    &:after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 6px);
+      right: 30px;
+      width: clamp(3px, 3vw, 5px);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 10px solid #fff;
+      transition: all 0.5s ease-out;
+    }
+  }
+  @include hover() {
+    &:hover {
+      &:before {
+        opacity: 0;
+      }
+      &__inner {
+        &:after {
+          border-left: 10px solid color-main();
+        }
+      }
+    }
+  }
+  @include hover(sp) {
+    &:active {
+      &:before {
+        opacity: 0;
+      }
+      &__inner {
+        &:after {
+          border-left: 10px solid color-main();
+        }
+      }
+    }
+  }
+}
+
+/*! destyle.css v4.0.0 | MIT License | https://github.com/nicolas-cusan/destyle.css */
+
+/* Reset box-model and set borders */
+/* ============================================ */
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 0;
+}
+
+/* Document */
+/* ============================================ */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ * 3. Remove gray overlay on links for iOS.
+ */
+
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -webkit-tap-highlight-color: transparent; /* 3*/
+}
+
+/* Sections */
+/* ============================================ */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+  display: block;
+}
+
+/* Vertical rhythm */
+/* ============================================ */
+
+p,
+table,
+blockquote,
+address,
+pre,
+iframe,
+form,
+figure,
+dl {
+  margin: 0;
+}
+
+/* Headings */
+/* ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+/* Lists (enumeration) */
+/* ============================================ */
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Lists (definition) */
+/* ============================================ */
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 0;
+}
+
+/* Grouping content */
+/* ============================================ */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+  border-top-width: 1px;
+  margin: 0;
+  clear: both;
+  color: inherit;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: inherit; /* 2 */
+}
+
+address {
+  font-style: inherit;
+}
+
+/* Text-level semantics */
+/* ============================================ */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: inherit; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Replaced content */
+/* ============================================ */
+
+/**
+ * Prevent vertical alignment issues.
+ */
+
+svg,
+img,
+embed,
+object,
+iframe {
+  vertical-align: bottom;
+}
+
+/* Forms */
+/* ============================================ */
+
+/**
+ * Reset form fields to make them styleable.
+ * 1. Make form elements stylable across systems iOS especially.
+ * 2. Inherit text-transform from parent.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  -webkit-appearance: none; /* 1 */
+  appearance: none;
+  vertical-align: middle;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  text-align: inherit;
+  text-transform: inherit; /* 2 */
+}
+
+/**
+ * Correct cursors for clickable elements.
+ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[type="button"]:disabled,
+[type="reset"]:disabled,
+[type="submit"]:disabled {
+  cursor: default;
+}
+
+/**
+ * Improve outlines for Firefox and unify style with input elements & buttons.
+ */
+
+:-moz-focusring {
+  outline: auto;
+}
+
+select:disabled {
+  opacity: inherit;
+}
+
+/**
+ * Remove padding
+ */
+
+option {
+  padding: 0;
+}
+
+/**
+ * Reset to invisible
+ */
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * Correct the outline style in Safari.
+ */
+
+[type="search"] {
+  outline-offset: -2px; /* 1 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Fix font inheritance.
+ */
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/**
+ * Fix appearance for Firefox
+ */
+[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/**
+ * Clickable labels
+ */
+
+label[for] {
+  cursor: pointer;
+}
+
+/* Interactive */
+/* ============================================ */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+  display: list-item;
+}
+
+/*
+ * Remove outline for editable content.
+ */
+
+[contenteditable]:focus {
+  outline: auto;
+}
+
+/* Tables */
+/* ============================================ */
+
+/**
+1. Correct table border color inheritance in all Chrome and Safari.
+*/
+
+table {
+  border-color: inherit; /* 1 */
+  border-collapse: collapse;
+}
+
+caption {
+  text-align: left;
+}
+
+td,
+th {
+  vertical-align: top;
+  padding: 0;
+}
+
+th {
+  text-align: left;
+  font-weight: bold;
+}

@@ -1,0 +1,484 @@
+@charset "utf-8";
+@import "mixin";
+@import "base";
+
+/**
+*Works
+*/
+#works {
+  padding-top: clamp(50px, 10vw, 150px);
+  .main-ttl {
+    @include main-ttl;
+  }
+  .js-subttl-view {
+    @include js-subttl-view($sub-ttl: "せいさくぶつ");
+  }
+}
+
+/**
+*WorksDetail
+*/
+@mixin work-detail-ttl {
+  font-weight: 900;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  color: color-main();
+  position: relative;
+  margin-bottom: 2em;
+  .line {
+    color: transparent;
+    -webkit-text-stroke: 0.02em color-main();
+  }
+}
+#works-detail {
+  padding-top: 50px;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &:-webkit-scrollbar {
+    display: none;
+  }
+  .first-view {
+    width: 100%;
+    position: relative;
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(51, 51, 51, 0.8);
+      z-index: 1;
+    }
+    &.active {
+      &::before {
+        content: "";
+        animation: open-up-animation 1s forwards;
+      }
+    }
+    &__txt {
+      @include box-1200($bottom: 0);
+      position: absolute;
+      top: 15%;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      &.active {
+        display: none;
+      }
+      .jsTypeWriter {
+        color: #fff;
+        > span {
+          border-right: 2px solid;
+          animation: caret 1s steps(1) infinite;
+        }
+      }
+    }
+    &__wrap {
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      margin-bottom: clamp(50px, 10vw, 150px);
+      padding: 0;
+      .main-ttl {
+        @include main-ttl($margin-bottom: 0.5em);
+        padding: 0 10px;
+      }
+      .js-subttl-view {
+        @include js-subttl-view($sub-ttl: "プロジェクト");
+        &:before {
+          left: 10px;
+        }
+      }
+      .jsTypeImage {
+        width: 100%;
+        height: auto;
+        opacity: 0.6;
+        transform: scale(0.8);
+        transition: 1s;
+        &.active {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+  .feature {
+    @include box-1200;
+    padding-bottom: 100px;
+    h2 {
+      @include work-detail-ttl;
+    }
+    .info {
+      position: relative;
+      padding-bottom: 100px;
+      &__image {
+        position: absolute;
+        right: 0;
+        left: 0;
+        width: 80%;
+        max-width: 700px;
+        clip-path: inset(0 round 20px);
+        z-index: -3;
+        @include mq(pc-tab) {
+          width: 100%;
+        }
+        img {
+          width: 100%;
+          height: auto;
+          filter: blur(2px);
+          opacity: 0.6;
+          @include mq(pc-tab) {
+            width: auto;
+            height: 80vh;
+          }
+        }
+      }
+      &__txt-box {
+        width: 50%;
+        margin-left: auto;
+        transform: translateY(50%);
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 1px solid color-main();
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.8);
+          z-index: -1;
+        }
+        @include mq(tab) {
+          width: 100%;
+          max-width: 550px;
+        }
+        ul {
+          padding: clamp(10px, 5vw, 20px);
+          .bold {
+            font-weight: 700;
+          }
+          li {
+            margin-bottom: 0.5em;
+            > span {
+              color: color-gray();
+              font-size: 0.9em;
+              font-weight: 700;
+            }
+            p {
+              margin-bottom: 0;
+            }
+            a {
+              border-bottom: 1px solid color-main();
+              transition: 0.3s ease;
+              img {
+                width: 0.8em;
+                height: auto;
+                vertical-align: unset;
+                margin-left: 2px;
+              }
+              @include hover() {
+                &:hover {
+                  opacity: 0.7;
+                  border-bottom: 1px solid rgba(51, 51, 51, 0.7);
+                }
+              }
+              @include hover(sp) {
+                &:active {
+                  opacity: 0.7;
+                  border-bottom: 1px solid rgba(51, 51, 51, 0.7);
+                }
+              }
+            }
+          }
+        }
+      }
+      &__circle {
+        z-index: -2;
+        position: absolute;
+        bottom: -20%;
+        left: -10%;
+        aspect-ratio: 1/1;
+        width: 40%;
+        max-width: 150px;
+        margin-left: auto;
+        transform: translateY(-40px);
+        .circleText {
+          overflow: visible;
+          animation: rotation 18s linear infinite;
+          &__path {
+            fill: none;
+          }
+          &__stroke {
+            font-size: 1.7rem;
+          }
+        }
+      }
+    }
+  }
+  .lateral-image {
+    @include box-1200($bottom: 0);
+    @include mq(pc-tab) {
+      flex-direction: column;
+      align-items: center;
+    }
+    &__box {
+      display: block;
+      float: left;
+      width: calc(calc(100% / 2) - 10px);
+      margin-right: 10px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0px 0px 3px rgba(51, 51, 51, 0.1));
+      @include mq(pc-tab) {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 50px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .image-copyright {
+    color: color-gray();
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: clamp(50px, 10vw, 150px);
+  }
+  .bg-image {
+    display: block;
+    width: 100%;
+    position: relative;
+    @include mq(pc-tab) {
+      padding: 20vw 0;
+    }
+    &__front {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+    &__back {
+      filter: blur(2px);
+      opacity: 0;
+      width: 150%;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: -1;
+      @include mq(pc-tab) {
+        opacity: 0.7;
+      }
+    }
+  }
+  .bg-copyright {
+    padding: 0 20px;
+    color: color-gray();
+    font-size: 1.4rem;
+    text-align: right;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: clamp(50px, 10vw, 150px);
+  }
+  .process {
+    @include box-1200;
+    h2 {
+      @include work-detail-ttl;
+    }
+    &__list {
+      margin: 0 auto;
+      max-width: 1000px;
+      li {
+        margin-bottom: clamp(50px, 5vw, 100px);
+        position: relative;
+        &.active {
+          &:before {
+            content: "";
+            width: 0;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            color: transparent;
+            border: 1px solid color-main();
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            z-index: -1;
+            animation: circle-close-up 2s 0.5s ease;
+          }
+        }
+        dl {
+          dt {
+            position: relative;
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            margin-bottom: 0.5em;
+            &:before {
+              position: absolute;
+              top: -1em;
+              left: 0.1em;
+              font-size: 0.7em;
+            }
+          }
+          dd {
+            margin-left: 0.2em;
+            line-height: 1.8em;
+          }
+        }
+      }
+      li:nth-of-type(1) {
+        dl dt {
+          &:before {
+            content: "01";
+          }
+        }
+      }
+      li:nth-of-type(2) {
+        dl dt {
+          &:before {
+            content: "02";
+          }
+        }
+      }
+      li:nth-of-type(3) {
+        dl dt {
+          &:before {
+            content: "03";
+          }
+        }
+      }
+      li:nth-of-type(4) {
+        dl dt {
+          &:before {
+            content: "04";
+          }
+        }
+      }
+    }
+  }
+  .image-group {
+    @include box-1200;
+    h2 {
+      @include work-detail-ttl;
+    }
+    .image-list {
+      &__sec {
+        width: calc(calc(100% / 4) - 10px);
+        margin-right: 10px;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border: 1px solid color-main();
+        float: left;
+        filter: drop-shadow(3px 3px 2px rgba(51, 51, 51, 0.2));
+        margin-bottom: 10px;
+        @include mq(pc-tab) {
+          width: calc(calc(100% / 2) - 10px);
+        }
+      }
+      &__img {
+        .popUp {
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .modal-wrapper {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(51, 51, 51, 0.5);
+      pointer-events: none;
+      opacity: 0;
+      transition: 0.25s ease-out;
+      &.show {
+        opacity: 1;
+        pointer-events: all;
+        z-index: 99;
+      }
+      .modal-image {
+        position: absolute;
+        max-width: 90%;
+        max-height: 90%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        opacity: 0;
+        transition: 0.5s ease-out;
+        &.show {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .ttl-wrap {
+    @include box-1200($bottom: 0);
+    h2 {
+      @include work-detail-ttl;
+    }
+  }
+  .youtube-link {
+    @extend %box-bottom;
+    position: relative;
+    padding: clamp(30px, 10vw, 50px) 10px;
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: color-green();
+      z-index: -1;
+    }
+    a {
+      display: block;
+      position: relative;
+      transition: all 0.3s linear;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      border: 1px solid #fff;
+      @include hover() {
+        &:hover {
+          transform: scale(0.98);
+          opacity: 0.8;
+        }
+      }
+      @include hover(sp) {
+        &:active {
+          transform: scale(0.98);
+          opacity: 0.8;
+        }
+      }
+      &:before {
+        content: "";
+        $src: $base-dir + "img/works/yotube-icon-122×86.svg";
+        background: url($src) center center no-repeat;
+        display: block;
+        width: 20%;
+        max-width: 80px;
+        height: 100%;
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 1;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
