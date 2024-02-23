@@ -4,6 +4,6 @@
 
 グラフィックデザイン・Webデザイン・イラストなど、これまでの制作物をまとめたポートフォリオサイトになります。
 
-***
+![ポートフォリオサイトPCファーストビュー](./first-view.png)
 
 [【サイトURL】](https://portfolio.hikari-design.site/)  
